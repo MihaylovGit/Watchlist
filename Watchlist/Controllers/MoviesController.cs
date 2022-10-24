@@ -71,5 +71,13 @@ namespace Watchlist.Controllers
 
             return RedirectToAction(nameof(All));
         }
+
+        public async Task<IActionResult> RemoveFromCollection(int movieId)
+        {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            await _movieService.RemoveMovieFromCollectionAsync(movieId, userId);
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

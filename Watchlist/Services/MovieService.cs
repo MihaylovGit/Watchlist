@@ -84,5 +84,27 @@ namespace Watchlist.Services
         {
           return await _dbContext.Genres.ToListAsync();
         }
+
+        public async Task RemoveMovieFromCollectionAsync(int movieId, string userId)
+        {
+            var user = await _dbContext.Users
+                .Where(u => u.Id == userId)
+                .Include(u => u.UsersMovies)
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            var movie = user.UsersMovies.FirstOrDefault(m => m.MovieId == movieId);
+
+            if (movie != null)
+            {
+                user.UsersMovies.Remove(movie);
+
+                await _dbContext.SaveChangesAsync();
+            }
+        }
     }
 }
