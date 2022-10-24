@@ -5,7 +5,7 @@ using static Watchlist.Data.DataConstants.User;
 
 namespace Watchlist.Data
 {
-    public class WatchlistDbContext : IdentityDbContext
+    public class WatchlistDbContext : IdentityDbContext<User>
     {
         public WatchlistDbContext(DbContextOptions<WatchlistDbContext> options)
             : base(options)
