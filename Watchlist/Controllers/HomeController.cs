@@ -7,7 +7,7 @@ namespace Watchlist.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("All", "Movies");
         }
     }
 }

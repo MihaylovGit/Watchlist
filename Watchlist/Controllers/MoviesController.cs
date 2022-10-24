@@ -77,7 +77,15 @@ namespace Watchlist.Controllers
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             await _movieService.RemoveMovieFromCollectionAsync(movieId, userId);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Watched));
+        }
+
+        public async Task<IActionResult> Watched()
+        {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var model = await _movieService.GetWatchedAsync(userId);
+
+            return View("Watched", model);
         }
     }
 }
