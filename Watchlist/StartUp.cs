@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Watchlist.Contracts;
 using Watchlist.Data;
 using Watchlist.Data.Entities;
+using Watchlist.Services;
 using static Watchlist.Data.DataConstants.User;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
 })
     .AddEntityFrameworkStores<WatchlistDbContext>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 var app = builder.Build();
 
